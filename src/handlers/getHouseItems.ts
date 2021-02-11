@@ -1,6 +1,5 @@
 import houseItems from '../data/houseItems';
 
-
 const getHouseItems = (houseItemId?: number) => {
   if (!houseItemId) {
     return houseItems;

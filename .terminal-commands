@@ -1,0 +1,1 @@
+scan table - aws dynamodb scan --table-name orders --region eu-central-1 --output json

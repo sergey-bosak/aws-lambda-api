@@ -1,4 +1,5 @@
 import AWS from 'aws-sdk';
+import { v4 as uuid } from 'uuid';
 const docClient = new AWS.DynamoDB.DocumentClient();
 
 const createOrder = (req) => {
@@ -9,7 +10,7 @@ const createOrder = (req) => {
   return docClient.put({
     TableName: 'orders',
     Item: {
-      orderId: 'some-id',
+      orderId: uuid(),
       item: req.item,
       address: req.address,
       orderStatus: 'pending',
