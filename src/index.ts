@@ -1,0 +1,43 @@
+import ApiBuilder from 'claudia-api-builder';
+const api : any = new ApiBuilder();
+import getHouseItems from './handlers/getHouseItems';
+import createOrder from './handlers/createOrder';
+import updateOrder from './handlers/updateOrder';
+import deleteOrder from './handlers/deleteOrder';
+
+api.get('/', () => 'yo welcome!');
+
+api.get('/houseItems', () => {
+  return getHouseItems();
+}, {
+  error: 404,
+});
+
+api.get('/houseItems/{id}',(req) => {
+  return getHouseItems(req.pathParams.id);
+}, {
+  error: 404,
+});
+
+api.post('/orders', (req) => {
+  return createOrder(req.body);
+}, {
+  success: 201,
+  error: 400,
+});
+
+api.put('/orders/{id}', (req) => {
+  return updateOrder(req.pathParams.id, req.body);
+}, {
+  success: 200,
+  error: 400,
+});
+
+api.delete('/order/{id}', (req) => {
+  return deleteOrder(req.pathParams.id);
+}, {
+  success: 200,
+  error: 400,
+});
+
+module.exports = api;

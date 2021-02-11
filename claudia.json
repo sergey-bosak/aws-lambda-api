@@ -1,0 +1,11 @@
+{
+  "lambda": {
+    "role": "aws-lambda-api-executor",
+    "name": "aws-lambda-api",
+    "region": "eu-central-1"
+  },
+  "api": {
+    "id": "2wrwdqj3qe",
+    "module": "bin/index"
+  }
+}
