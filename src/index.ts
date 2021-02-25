@@ -1,10 +1,14 @@
 import ApiBuilder from 'claudia-api-builder';
 const api : any = new ApiBuilder();
+import dotenv from 'dotenv';
+dotenv.config();
 import getHouseItems from './handlers/getHouseItems';
 import createOrder from './handlers/createOrder';
 import updateOrder from './handlers/updateOrder';
 import deleteOrder from './handlers/deleteOrder';
 import getOrders from './handlers/getOrders';
+
+api.registerAuthorizer('userAuthentication', { providerARNs: [process.env.USER_POOL_ARN] });
 
 api.get('/', () => 'yo welcome!');
 
@@ -26,6 +30,7 @@ api.post('/orders', (req) => {
 }, {
   success: 201,
   error: 400,
+  cognitoAuthorizer: 'userAuthentication',
 });
 
 api.put('/orders/{id}', (req) => {
@@ -33,7 +38,8 @@ api.put('/orders/{id}', (req) => {
 }, {
   success: 200,
   error: 400,
-});
+  cognitoAuthorizer: 'userAuthentication',
+},);
 
 api.delete('/order/{id}', (req) => {
   return deleteOrder(req.pathParams.id);
